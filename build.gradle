@@ -13,7 +13,7 @@ plugins {
 }
 
 group = 'com.nounse'
-version = '0.0.1.RELEASE'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 
