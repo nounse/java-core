@@ -7,7 +7,7 @@
  */
 
 plugins {
-    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    // id 'org.springframework.boot' version '2.2.6.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java-library'
     id 'maven-publish'
@@ -50,8 +50,12 @@ publishing {
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     // api 'org.apache.commons:commons-math3:3.6.1'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // implementation 'org.springframework.boot:spring-boot-starter-security'
+    // implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.security:spring-security-parent:2.0.8.RELEASE'
+    implementation 'jetty:javax.servlet:5.1.12'
+    implementation 'org.springframework:spring:5.2.5.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.2.6.RELEASE'
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     // implementation 'com.google.guava:guava:28.0-jre'
     implementation 'com.auth0:java-jwt:3.10.2'
