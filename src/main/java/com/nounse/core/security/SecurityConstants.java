@@ -6,5 +6,9 @@ public class SecurityConstants {
      public static final String TOKEN_PREFIX = "Bearer ";
      public static final String AUTHORIZATION_HEADER = "Authorization";
      public static final String ROLE_CLAIM_KEY = "nounse.r";
+
+     public class Schemes {
+          public static final String JWT = "bearer-jwt";
+     }
 }
 
