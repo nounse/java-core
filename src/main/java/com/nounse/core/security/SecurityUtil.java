@@ -1,10 +1,10 @@
 package com.nounse.core.security;
 
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +17,9 @@ import static com.nounse.core.security.SecurityConstants.ROLE_CLAIM_KEY;
 
 @Component
 public class SecurityUtil {
+
+    @Value("${token.secret}")
+    private String secret;
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -31,6 +34,10 @@ public class SecurityUtil {
     }
 
     public String generateTokenForUser(String userIdentifier, String role) {
+        if (secret == null || secret.isBlank()) {
+            secret = SECRET;
+        }
+
         Date now = new Date(System.currentTimeMillis());
         String jwtToken = JWT.create()
                 .withSubject(userIdentifier)
@@ -40,10 +47,11 @@ public class SecurityUtil {
                 .withNotBefore(now)
                 .withIssuedAt(now)
                 .withClaim(ROLE_CLAIM_KEY, role)
-                .sign(HMAC512(SECRET.getBytes()));
+                .sign(HMAC512(secret.getBytes()));
 
-        // TODO: We need to fix this for production, this check should be on dev and secret should load from env, this check is currently not implemented, need to do that too
-        log.warn("Generated token with default secret");
+        if (secret == SECRET) {
+            log.warn("Generated token with default secret");
+        }
 
         return jwtToken;
     }
